@@ -512,25 +512,6 @@ header.o_main_header {
                   max-width: 100%;
                 }
 
-                .content-switcher {
-                    .nav-tabs .nav-link.active {
-                        background-color: #f8f8f8;
-                        border-color: #dee2e6 #dee2e6 #f8f8f8;
-                        font-weight: $fw_semibold;
-                    }
-
-                    .tab-content {
-                        background: $doc_code-bg;
-                        border: 1px $gray-300 solid;
-                        border-top: 0;
-
-                        div[class^="highlight"] {
-                            border: 0;
-                            margin: 0;
-                        }
-                    }
-                }
-
                 @include media-breakpoint-up(xl) {
                     width: 100%;
                     padding-right: 0;
@@ -856,6 +837,7 @@ header.o_main_header {
             display: inline-block;
             border-radius: 0;
             border-width: 0 0 0 3px;
+            width: 100%;
             @include font-size($font-size-secondary);
 
             code {
@@ -997,6 +979,104 @@ header.o_main_header {
         }
     }
 }
+//------------------------------------------------------------------------------
+// Content Tabs
+//------------------------------------------------------------------------------
+
+@mixin o-content-tab-selected {
+    font-weight: 700;
+    background: $doc-paper;
+    border-bottom: 1px solid $doc-paper;
+    border-left: 1px solid $gray-light;
+    border-right: 1px solid $gray-light;
+}
+
+.sphinx-tabs {
+    padding: 0;
+    margin-bottom: 1rem;
+
+    div[role="tablist"] {
+        border-color: $gray-light;
+        display: inline-flex;
+        width: 100%;
+    }
+
+    *:focus-visible {
+        outline: none;
+    }
+
+    button {
+        display: inline;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .sphinx-tabs-tab {
+        background: $gray-lightest;
+        color: $gray-900;
+        border: 0;
+        border-top: solid 1px $gray-light;
+        padding: .5rem 1rem;
+
+        &:hover {
+            &:not([aria-selected="true"]) {
+                cursor: pointer;
+                background: hsl(317deg, 16%, 90%);
+                color: #7A436B;
+                transition: color .15s, background .15s;
+                border-radius: 0;
+            }
+        }
+
+        &:first-of-type {
+            border-left: solid 1px $gray-light;
+        }
+
+        &:last-of-type {
+            border-right: solid 1px $gray-light;
+        }
+
+        &:focus {
+            z-index: unset;
+        }
+
+        &[aria-selected="true"] {
+            @include o-content-tab-selected();
+            margin-top: 0;
+            margin-bottom: -1px;
+
+            &:hover {
+                cursor: unset;
+            }
+
+            &:first-of-type {
+                @include o-content-tab-selected();
+            }
+        }
+    }
+
+    .sphinx-tabs-panel {
+        background: $doc-paper;
+        color: $gray-900;
+        border: 1px solid $gray-light;
+        padding: 1rem;
+
+        &:focus {
+            outline: none;
+        }
+
+        > div[class^="highlight-"]{
+            border: 0 !important;
+        }
+        
+        > *:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+}
+
 //------------------------------------------------------------------------------
 // Footer
 //------------------------------------------------------------------------------
